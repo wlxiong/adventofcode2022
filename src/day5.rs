@@ -130,17 +130,9 @@ pub fn part2() {
         let fields: Vec<usize> = trimmed.splitn(6, ' ').map(|c| c.parse().unwrap_or(0)).collect();
         let (num, src, dst) = (fields[1], fields[3]-1, fields[5]-1);
 
-        let stack_height;
-        {
-            stack_height = stacks[src].len();
-        }
-        let tail_elems: Vec<_>;
-        {
-            tail_elems = stacks[src].drain((stack_height - num)..).collect();
-        }
-        {
-            stacks[dst].extend(tail_elems);
-        }
+        let stack_height = stacks[src].len();
+        let tail_elems: Vec<_> = stacks[src].drain((stack_height - num)..).collect();
+        stacks[dst].extend(tail_elems);
     }
 
     let mut result = String::new();
